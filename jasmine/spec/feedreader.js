@@ -88,18 +88,17 @@ $(function() {
          * beforeEach and asynchronous done() function.
          */
 
-        /* Make sure the content loads with a short delay, 500ms is sufficient
-        * time.
+        /* Make sure the loadFeed function is called and completed before
+        * checking if there are any articles / (.entry) elements.
         */
         beforeEach(function(done) {
-            setTimeout(function() {
-                done();
-            }, 500);
+            loadFeed(0, done);
         });
 
         // Checks that there is an article element
-        it('has at least an entry element on load', function() {
-            expect($('article').get().length).toBeGreaterThan(0);
+        it('has at least an entry element on load', function(done) {
+            expect($('.entry').length).toBeGreaterThan(0);
+            done();
         });
     });
 
@@ -118,12 +117,12 @@ $(function() {
             loadFeed(0, function() {
                 previousFeed = $('.feed').find("h2").text();
                 console.log(previousFeed);
-            });
-            // Assign content of the second feed to current feed variable
-            loadFeed(1, function() {
-                currentFeed = $('.feed').find("h2").text();
-                console.log(currentFeed);
-                done();
+                // Assign content of the second feed to current feed variable
+                loadFeed(1, function() {
+                    currentFeed = $('.feed').find("h2").text();
+                    console.log(currentFeed);
+                    done();
+                });
             });
         });
 
