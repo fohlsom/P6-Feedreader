@@ -68,14 +68,12 @@ $(function() {
          */
 
         it('changes visibility when the menu icon is clicked', function () {
-            var menuIcon = $('.menu-icon-link');
-
             // Checks tha the menu is visible
-            menuIcon.trigger('click');
+            $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBeFalsy();
 
             // Checks that the menu is hidden
-            menuIcon.trigger('click');
+            $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
     });
