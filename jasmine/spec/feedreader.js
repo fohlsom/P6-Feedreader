@@ -9,12 +9,12 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
-    /* A test suite just contains a related set of tests. This suite 
-    * is all about the RSS feeds definitions, the allFeeds variable 
+    /* A test suite just contains a related set of tests. This suite
+    * is all about the RSS feeds definitions, the allFeeds variable
     * in our application.
     */
     describe('RSS Feeds', function() {
-        
+
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
@@ -22,7 +22,7 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        
+
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
@@ -32,7 +32,7 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        
+
         it('are defined and not empty', function () {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
@@ -44,7 +44,7 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        
+
         it('names are defined and not empty', function () {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
@@ -57,38 +57,36 @@ $(function() {
     /* Test suite named "The menu" for testng the menu behavior*/
 
     describe('The menu', function() {
-
         /* Test that ensures the menu element is hidden by default. */
-        
+
         it('is hidden by default', function () {
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
-        /* Test that ensures the menu changes visibility when the 
-         * menu icon is clicked. 
+        /* Test that ensures the menu changes visibility when the
+         * menu icon is clicked.
          */
-        
+
         it('changes visibility when the menu icon is clicked', function () {
             var menuIcon = $('.menu-icon-link');
-            var body = $('body');
 
             // Checks tha the menu is visible
             menuIcon.trigger('click');
-            expect(body.hasClass('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
 
             // Checks that the menu is hidden
-            menuIcon.trigger('click'); 
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            menuIcon.trigger('click');
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
     });
-    
+
     /* Test suite named "Initial Entries" */
-    
+
     describe('Initial Entries', function() {
 
-        /* Test that ensures when the loadFeed function is called and 
-         * completes its work, there is at least a single .entry element 
-         * within the .feed container. loadFeed() is asynchronous so we use 
+        /* Test that ensures when the loadFeed function is called and
+         * completes its work, there is at least a single .entry element
+         * within the .feed container. loadFeed() is asynchronous so we use
          * beforeEach and asynchronous done() function.
          */
 
@@ -110,27 +108,25 @@ $(function() {
     /* Test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
 
-        /* Test that ensures when a new feed is loaded by the loadFeed 
+        /* Test that ensures when a new feed is loaded by the loadFeed
          * function that the content actually changes.
          */
-        
+
         // Create variable to hold feeds and comparison
-        var previousFeed, currentFeed; 
+        var previousFeed, currentFeed;
 
         beforeEach(function(done){
             // Assign content of the first feed to previous feed variable
             loadFeed(0, function() {
-                previousFeed = $('.feed').find("h2").text(); 
+                previousFeed = $('.feed').find("h2").text();
                 console.log(previousFeed);
             });
             // Assign content of the second feed to current feed variable
             loadFeed(1, function() {
-                currentFeed = $('.feed').find("h2").text(); 
+                currentFeed = $('.feed').find("h2").text();
                 console.log(currentFeed);
                 done();
-                
             });
-            
         });
 
         it('new feed content has been updated', function(done){
